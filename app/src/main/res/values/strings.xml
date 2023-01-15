@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Todo List</string>
+    <string name="date">Date</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
+    <string name="delete">Delete</string>
+    <string name="change">Ubah</string>
+    <string name="update">Perbarui</string>
+    <string name="add">Tambah</string>
+    <string name="save">Simpan</string>
+    <string name="empty">Field wajib diisi</string>
+    <string name="changed">Item berhasil diubah</string>
+    <string name="added">Item berhasil ditambahkan</string>
+    <string name="cancel">Batal</string>
+    <string name="message_cancel">Apakah anda ingin membatalkan perubahan ?</string>
+    <string name="message_delete">Apakah anda ingin menghapus item ?</string>
+    <string name="yes">Ya</string>
+    <string name="deleted">Item berhasil dihapus</string>
+    <string name="no">Tidak</string>
 </resources>
