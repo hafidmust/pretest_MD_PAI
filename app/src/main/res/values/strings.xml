@@ -18,4 +18,5 @@
     <string name="yes">Ya</string>
     <string name="deleted">Item berhasil dihapus</string>
     <string name="no">Tidak</string>
+    <string name="set_finish">Set Finish</string>
 </resources>

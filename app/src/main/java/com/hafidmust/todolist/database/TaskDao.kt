@@ -21,4 +21,7 @@ interface TaskDao {
 
     @Query("SELECT * from task ORDER BY id ASC")
     fun getAllTask() : LiveData<List<Task>>
+
+    @Update
+    fun setFinishTask(task : Task)
 }

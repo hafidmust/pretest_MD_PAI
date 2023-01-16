@@ -30,4 +30,9 @@ class TaskRepository(application : Application) {
     fun update(task : Task){
         executorsService.execute { mTaskDao.updateTask(task) }
     }
+
+    fun setFinishTask(task : Task, newState : Boolean){
+        task.isFinish = newState
+        executorsService.execute { mTaskDao.setFinishTask(task) }
+    }
 }

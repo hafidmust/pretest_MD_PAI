@@ -7,17 +7,22 @@ import com.hafidmust.todolist.repository.TaskRepository
 
 class TaskAddUpdateViewModel(application: Application) : ViewModel() {
 
-    private val taskRepository : TaskRepository = TaskRepository(application)
+    private val taskRepository: TaskRepository = TaskRepository(application)
 
-    fun insert(task : Task){
+    fun insert(task: Task) {
         taskRepository.insert(task)
     }
 
-    fun update(task : Task){
+    fun update(task: Task) {
         taskRepository.update(task)
     }
 
-    fun delete(task : Task){
+    fun delete(task: Task) {
         taskRepository.delete(task)
     }
+
+    fun setFinish(task: Task, newState: Boolean) {
+        taskRepository.setFinishTask(task, newState)
+    }
+
 }

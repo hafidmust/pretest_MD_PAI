@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
@@ -36,10 +37,30 @@ class TaskAddUpdateActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         taskAddUpdateViewModel = obtainViewModel(this@TaskAddUpdateActivity)
+        task = intent.getParcelableExtra(EXTRA_TASK)
 
+        var statusFinish = task?.isFinish
+        if (statusFinish != null) {
+            binding?.cbFinish?.isChecked = statusFinish
+        }
+        setStatusFinish(statusFinish)
+        binding?.cbFinish?.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                setStatusFinish(true)
+                taskAddUpdateViewModel.setFinish(task as Task,true)
+            }else{
+                setStatusFinish(false)
+                taskAddUpdateViewModel.setFinish(task as Task,false)
+            }
+
+        }
         binding?.btnSubmit?.setOnClickListener {
             val title = binding?.edtTitle?.text.toString().trim()
             val description = binding?.edtDescription?.text.toString().trim()
+
+
+
+
             when {
                 title.isEmpty() -> {
                     binding?.edtTitle?.error = getString(R.string.empty)
@@ -51,9 +72,16 @@ class TaskAddUpdateActivity : AppCompatActivity() {
                     task.let { task ->
                         task?.title = title
                         task?.description = description
+
+//                        if (statusFinish != null) {
+//                            task?.isFinish = statusFinish
+//                        }
                     }
                     if (isEdit) {
                         taskAddUpdateViewModel.update(task as Task)
+//                        if (statusFinish != null) {
+//                            taskAddUpdateViewModel.setFinish(task as Task, statusFinish)
+//                        }
                         showToast(getString(R.string.changed))
                     } else {
                         task.let { task ->
@@ -67,7 +95,7 @@ class TaskAddUpdateActivity : AppCompatActivity() {
             }
         }
 
-        task = intent.getParcelableExtra(EXTRA_TASK)
+
         if (task != null) {
             isEdit = true
         } else {
@@ -78,6 +106,7 @@ class TaskAddUpdateActivity : AppCompatActivity() {
         if (isEdit) {
             actionBarTitle = getString(R.string.change)
             btnTitle = getString(R.string.update)
+            binding?.cbFinish?.visibility = View.VISIBLE
             if (task != null) {
                 task?.let { task ->
                     binding?.edtTitle?.setText(task.title)
@@ -91,6 +120,10 @@ class TaskAddUpdateActivity : AppCompatActivity() {
         supportActionBar?.title = actionBarTitle
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding?.btnSubmit?.text = btnTitle
+    }
+
+    private fun setStatusFinish(statusFinish: Boolean?) {
+        binding?.cbFinish?.isChecked = statusFinish == true
     }
 
     private fun showToast(message: String) {
